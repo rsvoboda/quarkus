@@ -89,7 +89,7 @@ public class NativeImageBuildStep {
 
         Path runnerJar = outputDir.resolve(nativeImageSourceJarBuildItem.getPath().getFileName());
 
-        String nativeImageName = getResultingBinaryName(outputTargetBuildItem, packageConfig, isContainerBuild(nativeConfig));
+        String nativeImageName = getResultingBinaryName(outputTargetBuildItem, packageConfig);
 
         NativeImageInvokerInfo nativeImageArgs = new NativeImageInvokerInfo.Builder()
                 .setNativeConfig(nativeConfig)
@@ -144,7 +144,8 @@ public class NativeImageBuildStep {
             noPIE = detectNoPIE();
         }
 
-        String nativeImageName = getResultingBinaryName(outputTargetBuildItem, packageConfig, isContainerBuild);
+        String nativeImageName = getResultingBinaryName(outputTargetBuildItem, packageConfig);
+        String nativeImageFileName = getResultingBinaryFileName(outputTargetBuildItem, packageConfig, isContainerBuild);
 
         NativeImageBuildRunner buildRunner = getNativeImageBuildRunner(nativeConfig, outputDir, nativeImageName);
         buildRunner.setup(processInheritIODisabled.isPresent());
@@ -179,8 +180,8 @@ public class NativeImageBuildStep {
             if (exitCode != 0) {
                 throw imageGenerationFailed(exitCode, nativeImageArgs);
             }
-            Path generatedImage = outputDir.resolve(nativeImageName);
-            Path finalPath = outputTargetBuildItem.getOutputDirectory().resolve(nativeImageName);
+            Path generatedImage = outputDir.resolve(nativeImageFileName);
+            Path finalPath = outputTargetBuildItem.getOutputDirectory().resolve(nativeImageFileName);
             IoUtils.copy(generatedImage, finalPath);
             Files.delete(generatedImage);
             if (nativeConfig.debug.enabled) {
@@ -214,9 +215,13 @@ public class NativeImageBuildStep {
         }
     }
 
-    private String getResultingBinaryName(OutputTargetBuildItem outputTargetBuildItem, PackageConfig packageConfig,
+    private String getResultingBinaryName(OutputTargetBuildItem outputTargetBuildItem, PackageConfig packageConfig) {
+        return outputTargetBuildItem.getBaseName() + packageConfig.runnerSuffix;
+    }
+
+    private String getResultingBinaryFileName(OutputTargetBuildItem outputTargetBuildItem, PackageConfig packageConfig,
             boolean isContainerBuild) {
-        String nativeImageName = outputTargetBuildItem.getBaseName() + packageConfig.runnerSuffix;
+        String nativeImageName = getResultingBinaryName(outputTargetBuildItem, packageConfig);
         if (SystemUtils.IS_OS_WINDOWS && !isContainerBuild) {
             //once image is generated it gets added .exe on Windows
             nativeImageName = nativeImageName + ".exe";
