@@ -1,6 +1,7 @@
 package io.quarkus.spring.boot.properties.deployment;
 
 import static io.quarkus.runtime.util.StringUtil.camelHumpsIterator;
+import static io.quarkus.runtime.util.StringUtil.join;
 import static io.quarkus.runtime.util.StringUtil.lowerCase;
 import static io.quarkus.runtime.util.StringUtil.withoutSuffix;
 
@@ -66,10 +67,11 @@ final class ConfigurationPropertiesMetadataBuildItem extends MultiBuildItem {
         return prefix;
     }
 
+    @SuppressWarnings("deprecation")
     private String getPrefixFromClassName(DotName className) {
         String simpleName = className.isInner() ? className.local() : className.withoutPackagePrefix();
-        return String.join("-",
-                (Iterable<String>) () -> withoutSuffix(lowerCase(camelHumpsIterator(simpleName)), "config", "configuration",
+        return join("-",
+                withoutSuffix(lowerCase(camelHumpsIterator(simpleName)), "config", "configuration",
                         "properties", "props"));
     }
 

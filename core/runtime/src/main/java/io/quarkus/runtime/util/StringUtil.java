@@ -112,13 +112,13 @@ public final class StringUtil {
     }
 
     /**
-     * Dropped for public usage, kept in place for usage by hyphenate method to avoid need for lambda
-     *
+     * @deprecated Use {@link String#join} instead.
      * @param delim delimiter
      * @param it iterator
      * @return the joined string
      */
-    private static String join(String delim, Iterator<String> it) {
+    @Deprecated
+    public static String join(String delim, Iterator<String> it) {
         final StringBuilder b = new StringBuilder();
         if (it.hasNext()) {
             b.append(it.next());
