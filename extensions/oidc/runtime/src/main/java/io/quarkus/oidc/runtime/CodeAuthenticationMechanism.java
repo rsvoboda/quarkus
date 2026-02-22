@@ -1090,6 +1090,12 @@ public class CodeAuthenticationMechanism extends AbstractOidcAuthenticationMecha
             builder.expiresIn(accessTokenExpiresInSecs);
         }
         builder.audience(context.oidcConfig().clientId().get());
+        if (context.getOidcMetadata().getIssuer() != null) {
+            // Technically, Quarkus OIDC `issues` the internal generated ID token but it is also true
+            // that internal ID token is meant to represent a session associated with an OAuth2 provider
+            // that does not issue ID tokens but only access and possibly refresh tokens.
+            builder.issuer(context.getOidcMetadata().getIssuer());
+        }
 
         JwtSignatureBuilder sigBuilder = builder.jws().header(INTERNAL_IDTOKEN_HEADER, true);
         String clientOrJwtSecret = context.getOidcProviderClient().getClientOrJwtSecret();
