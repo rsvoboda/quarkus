@@ -46,7 +46,7 @@ Quarkus supports deploying your application to Google Cloud Functions via the fo
 - xref:gcp-functions.adoc[Google Cloud Functions]: Build functions using the Google Cloud Functions API.
 - xref:gcp-functions-http.adoc[Google Cloud Functions HTTP binding]: Build functions using Quarkus HTTP APIs: Quarkus REST (formerly RESTEasy Reactive, our Jakarta REST implementation),
 Undertow (Servlet), Vert.x Web, or xref:funqy-http.adoc[Funqy HTTP].
-- xref:funqy-gcp-functions.adoc[Funky Google Cloud Functions]: Build functions using Funqy.
+- xref:funqy-gcp-functions.adoc[Funqy Google Cloud Functions]: Build functions using Funqy.
 
 Each extension supports a specific kind of application development,
 follow the specific guides for more information on how to develop, package and deploy your applications using them.
@@ -187,8 +187,8 @@ To deploy a native application:
 - Copy the native Dockerfile to the root directory of your project: `cp src/main/docker/Dockerfile.native Dockerfile`.
 - Build your application as a native executable using `mvn clean package -Dnative`.
 
-Then, create a `.gcloudignore` file to tell gcloud which files should be not be uploaded for Cloud Build,
-without it, it defaults to `.gitignore` that usually exclude the target directory where you packaged application has been created.
+Then, create a `.gcloudignore` file to tell gcloud which files should not be uploaded for Cloud Build,
+without it, it defaults to `.gitignore` that usually exclude the target directory where your packaged application has been created.
 
 In this example, I only exclude the `src` directory:
 
