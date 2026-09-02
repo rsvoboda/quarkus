@@ -225,7 +225,7 @@ Hit `CTRL+C` or type `q` to stop the application.
 
 === JDBC
 
-The https://github.com/open-telemetry/opentelemetry-java-instrumentation/tree/main/instrumentation/jdbc/library[JDBC instrumentation] bundled with this extension will add a span for each JDBC queries done by your application.
+The https://github.com/open-telemetry/opentelemetry-java-instrumentation/tree/main/instrumentation/jdbc/library[JDBC instrumentation] bundled with this extension will add a span for each JDBC query done by your application.
 
 As it uses a dedicated JDBC datasource wrapper, you must enable telemetry for your datasource with the `quarkus.datasource.jdbc.telemetry` property, as in the following example:
 
@@ -313,7 +313,7 @@ implementation("io.opentelemetry.contrib:opentelemetry-aws-xray-propagator")
 
 ==== Customise Propagator
 
-To customise the propagation header you can implement the `TextMapPropagatorCustomizer` interface. This can be used, as an example, to restrict propagation of OpenTelemetry trace headers and prevent potentially sensitive data to be sent to third party systems.
+To customise the propagation header you can implement the `TextMapPropagatorCustomizer` interface. This can be used, as an example, to restrict propagation of OpenTelemetry trace headers and prevent potentially sensitive data from being sent to third party systems.
 
 ```java
 /**
@@ -635,7 +635,7 @@ quarkus.otel.security-events.enabled=true <1>
 
 == Manual instrumentation
 
-In cases were utilities or automatic instrumentation is not available, manual instrumentation can be used to generate spans, propagate the OpenTelemetry context and the Baggage.
+In cases where utilities or automatic instrumentation is not available, manual instrumentation can be used to generate spans, propagate the OpenTelemetry context and the Baggage.
 
 [WARNING]
 ====
@@ -789,7 +789,7 @@ public static class HelloPropagation {
 
 The https://opentelemetry.io/docs/languages/java/api/#baggage[Baggage] can be used to send application specific data using the OpenTelemetry's propagation mechanism.
 
-In Quarkus, as documented in the <<cdi-injections-reference>>, Baggage can be injected to unwrap data coming with inbound requests but in more complex scenarios were data needs to be sent away in the Baggage manual instrumentation is required.
+In Quarkus, as documented in the <<cdi-injections-reference>>, Baggage can be injected to unwrap data coming with inbound requests but in more complex scenarios where data needs to be sent away in the Baggage manual instrumentation is required.
 
 *This is an advanced subject*.
 

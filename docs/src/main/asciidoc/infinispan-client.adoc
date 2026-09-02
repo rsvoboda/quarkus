@@ -21,7 +21,7 @@ In this guide, we are going to expose a Greeting Rest API to create and display 
 the https://infinispan.org/docs/stable/titles/hotrod_java/hotrod_java.html#remotecache_api[Infinispan RemoteCache API]
 and `getAsync` and `putAsync` operations.
 
-We'll be using the Quarkus Infinispan Client extension to connect to interact with Infinispan.
+We'll be using the Quarkus Infinispan Client extension to connect to and interact with Infinispan.
 
 == Solution
 We recommend that you follow the instructions in the next sections and create the application step by step.
@@ -298,7 +298,7 @@ The service should respond with the following json content.
 === Display the cache and content with the Infinispan Server Console
 
 If a requested cache does not exist, Quarkus creates a cache with a Default configuration on first access.
-We should be able to reaload the Infinispan Server Console and display the content of the Cache.
+We should be able to reload the Infinispan Server Console and display the content of the Cache.
 The Infinispan Server Console uses the https://infinispan.org/docs/stable/titles/rest/rest.html[Infinispan Server REST API].
 The content can be displayed in JSON thanks to the Protobuf Encoding that converts to JSON format.
 

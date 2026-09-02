@@ -439,9 +439,9 @@ public class Person extends PanacheEntity {
 }
 ----
 
-In this example, we have added a named query to list all the persons that contains some text in the `name` field.
+In this example, we have added a named query to list all the persons that contain some text in the `name` field.
 
-Next, we can set a query param `namedQuery` when listing the entities using the generated resource with the name of the named query that we want to use, for example, calling `http://localhost:8080/people?namedQuery=Person.containsInName&name=ter` would return all the persons which name contains the text "ter".
+Next, we can set a query param `namedQuery` when listing the entities using the generated resource with the name of the named query that we want to use, for example, calling `http://localhost:8080/people?namedQuery=Person.containsInName&name=ter` would return all the persons whose name contains the text "ter".
 
 For more information about how named queries work, go to the xref:hibernate-orm-panache.adoc#named-queries[Hibernate ORM] guide or to the xref:hibernate-reactive-panache.adoc#named-queries[Hibernate Reactive] guide.
 
@@ -616,7 +616,7 @@ A `previous` link header (and hal link) would not be included, because the previ
 
 === Using Build time conditions
 
-Quarkus enables the inclusion or exclusion of Jakarta REST Resources, Providers and Features directly thanks to build time conditions in the same that it does for CDI beans.
+Quarkus enables the inclusion or exclusion of Jakarta REST Resources, Providers and Features directly thanks to build time conditions in the same way that it does for CDI beans.
 Thus, the REST Data with Panache interfaces can be annotated with profile conditions (`@io.quarkus.arc.profile.IfBuildProfile` or `@io.quarkus.arc.profile.UnlessBuildProfile`) and/or with property conditions (`io.quarkus.arc.properties.IfBuildProperty` or `io.quarkus.arc.properties.UnlessBuildProperty`) to indicate to Quarkus at build time under which conditions the generated Jakarta REST classes should be included.
 
 In the following example, Quarkus will include the generated resource from the `PeopleResource` interface if and only if the build profile `app1` has been enabled.

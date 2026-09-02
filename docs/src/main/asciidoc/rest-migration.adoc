@@ -15,7 +15,7 @@ NOTE: The reference documentation of Quarkus REST can be found xref:rest.adoc[he
 
 == Server
 
-The server part of Quarkus REST (`quarkus-rest` and its dependencies) provide an implementation of the Jakarta REST specification, but leverage Quarkus' build time processing
+The server part of Quarkus REST (`quarkus-rest` and its dependencies) provides an implementation of the Jakarta REST specification, but leverages Quarkus' build time processing
 and the unified I/O model provided by Vert.x.
 
 === Dependencies

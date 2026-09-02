@@ -136,7 +136,7 @@ public static class MyApplication extends Application {
 }
 ----
 
-This will cause all rest endpoints to be resolve relative to `/api`, so the endpoint above with `@Path("rest")` would
+This will cause all rest endpoints to be resolved relative to `/api`, so the endpoint above with `@Path("rest")` would
 be accessible at `/api/rest/`. You can also set the <<quarkus-rest-common_quarkus-rest-path,`quarkus.rest.path`>> build time property to set the root path if you
 don't want to use an annotation.
 
@@ -313,7 +313,7 @@ see <<uri-parameters,URI parameters>> for more information.
 
 |Matrix parameter
 |link:{resteasy-reactive-common-api}/org/jboss/resteasy/reactive/RestMatrix.html[`@RestMatrix`]
-|The value of an https://tools.ietf.org/html/rfc3986#section-3.3[URI path segment parameter]
+|The value of a https://tools.ietf.org/html/rfc3986#section-3.3[URI path segment parameter]
 
 |===
 
@@ -382,7 +382,7 @@ See <<parameter-mapping>> for more advanced use-cases.
 [NOTE]
 ====
 When an exception occurs in Quarkus REST request parameter handling code, the exception is not printed by default to the log (for security reasons).
-This can sometimes make it hard to understand why certain HTTP status codes are returned (as the Jakarta REST mandates the use of non-intuitive error codes in various cases).
+This can sometimes make it hard to understand why certain HTTP status codes are returned (as Jakarta REST mandates the use of non-intuitive error codes in various cases).
 In such cases, users are encouraged to set the logging level for the `org.jboss.resteasy.reactive.server.handlers.ParameterHandler` category to `DEBUG` like so:
 
 [source, properties]
@@ -394,7 +394,7 @@ quarkus.log.category."org.jboss.resteasy.reactive.server.handlers.ParameterHandl
 ==== Grouping parameters in a custom class
 [[parameter-grouping]]
 
-You can group your request parameters in a container class instead of declaring them as method parameters to you endpoint,
+You can group your request parameters in a container class instead of declaring them as method parameters to your endpoint,
 so we can rewrite the previous example like this:
 
 [source,java]
@@ -615,7 +615,7 @@ with a UUID file name and no additional metadata is saved, these files are essen
 
 [TIP]
 ====
-When a Resource method needs to handle various types of multipart requests, then the `org.jboss.resteasy.reactive.server.multipart.MultipartFormDataInput` method type can be used as provides access to all the parts of the request.
+When a Resource method needs to handle various types of multipart requests, then the `org.jboss.resteasy.reactive.server.multipart.MultipartFormDataInput` method type can be used as it provides access to all the parts of the request.
 
 The following code shows a simple example where we iterate over the parts and return a list of aggregated data:
 
@@ -675,7 +675,7 @@ If this exception is not handled by the application as mentioned in <<exception-
 
 ==== Multipart output
 
-Similarly, Quarkus REST can produce Multipart Form data to allow users download files from the server. For example, we could write a POJO
+Similarly, Quarkus REST can produce Multipart Form data to allow users to download files from the server. For example, we could write a POJO
 that will hold the information we want to expose as:
 
 [source,java]
@@ -744,7 +744,7 @@ public class Endpoint {
 }
 ----
 
-This last approach allows you adding extra headers to the output part.
+This last approach allows you to add extra headers to the output part.
 
 WARNING: For the time being, returning Multipart data is limited to be blocking endpoints.
 
@@ -1518,8 +1518,8 @@ along with a good error message in Dev and Test modes, about what went wrong dur
 
 [NOTE]
 ====
-There are situations where various Jackson related exceptions need to handled in a uniform way.For example, the application may need to handle all `JsonMappingException` the same way.
-This becomes a problem when taking JAX-RS / Jakarta REST rules into account, because the exception mapper `ExceptionMapper` for `MismatchedInputException` would be used instead of the user provide
+There are situations where various Jackson related exceptions need to be handled in a uniform way. For example, the application may need to handle all `JsonMappingException` the same way.
+This becomes a problem when taking JAX-RS / Jakarta REST rules into account, because the exception mapper `ExceptionMapper` for `MismatchedInputException` would be used instead of the user-provided
 `ExceptionMapper` for `JsonMappingException` (as `MismatchedInputException` is a subtype of `JsonMappingException`).
 
 To handle this, you can disable the built-in exception mapper:
@@ -1839,7 +1839,7 @@ serialisation>>.
 
 The JAXB Quarkus REST extension will automatically detect the classes that are used in the resources and require JAXB serialization. Then, it will register these classes into the default `JAXBContext` which is internally used by the JAXB message reader and writer.
 
-However, in some situations, these classes cause the `JAXBContext` to fail: for example, when you're using the same class name in different java packages. In these cases, the application will fail at build time and print the JAXB exception that caused the issue, so you can properly fix it. Alternatively, you can also exclude the classes that cause the issue by using the property `quarkus.jaxb.exclude-classes`. When excluding classes that are required by any resource, the JAXB Quarkus REST extension will create and cache a custom `JAXBContext` that will include the excluded class, causing a minimal performance degradance.
+However, in some situations, these classes cause the `JAXBContext` to fail: for example, when you're using the same class name in different java packages. In these cases, the application will fail at build time and print the JAXB exception that caused the issue, so you can properly fix it. Alternatively, you can also exclude the classes that cause the issue by using the property `quarkus.jaxb.exclude-classes`. When excluding classes that are required by any resource, the JAXB Quarkus REST extension will create and cache a custom `JAXBContext` that will include the excluded class, causing a minimal performance degradation.
 
 [NOTE]
 ====
@@ -1881,7 +1881,7 @@ public class MyService {
 
 [NOTE]
 ====
-Quarkus will automatically find all the classes annotated with `@XmlRootElement` and then bound them to the JAXB context.
+Quarkus will automatically find all the classes annotated with `@XmlRootElement` and then bind them to the JAXB context.
 ====
 
 ===== Customize the JAXB configuration
@@ -1917,7 +1917,7 @@ public class RegisterCustomModuleCustomizer implements JaxbContextCustomizer {
 
 [NOTE]
 ====
-It's not necessary to implement all three methods, but only the want you need.
+It's not necessary to implement all three methods, but only the ones you need.
 ====
 
 Alternatively, you can provide your own `JAXBContext` bean by doing:
@@ -2518,7 +2518,7 @@ This is useful when you have a general exception mapper for a parent type (like 
 
 [NOTE]
 ====
-Εxception mappers defined in REST endpoint classes will only be called if the  exception is thrown in the same class. If you want to define global exception mappers,
+Exception mappers defined in REST endpoint classes will only be called if the  exception is thrown in the same class. If you want to define global exception mappers,
 simply define them outside a REST endpoint class:
 
 [source,java]
@@ -3022,7 +3022,7 @@ the type is an `enum` in which case `fromString` will be used.
 5. link:{jdkapi}/java/util/List.html[`List<T>`], link:{jdkapi}/java/util/Set.html[`Set<T>`], or
 link:{jdkapi}/java/util/SortedSet.html[`SortedSet<T>`], where `T` satisfies 1, 3 or 4 above.
 
-For 3 and 4, constructor instantiation is prioritesed above method instantiation. Public, protected, and package private constructors and methods are supported for instantiation.
+For 3 and 4, constructor instantiation is prioritized above method instantiation. Public, protected, and package private constructors and methods are supported for instantiation.
 
 The following example illustrates all those possibilities:
 

@@ -29,7 +29,7 @@ include::{includes}/prerequisites.adoc[]
 
 The application built in this guide is quite simple: the user can add elements in a list using a form and the list is updated.
 
-All the information between the browser and the server are formatted as JSON.
+All the information between the browser and the server is formatted as JSON.
 
 == Solution
 

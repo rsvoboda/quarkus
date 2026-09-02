@@ -38,7 +38,7 @@ Next, we want to expose our application using the Kubernetes Ingress resource:
 quarkus.kubernetes.ingress.expose=true
 ----
 
-The Quarkus Kubernetes will bind the HTTP server using the port name `http` and the gRPC server using the port name `grpc`. By default, the Quarkus application will only expose the port name `http`, so only the HTTP server will be publicly accessible. To expose the gRPC server instead, set the `quarkus.kubernetes.ingress.target-port=grpc` property in your application.properties:
+The Quarkus Kubernetes extension will bind the HTTP server using the port name `http` and the gRPC server using the port name `grpc`. By default, the Quarkus application will only expose the port name `http`, so only the HTTP server will be publicly accessible. To expose the gRPC server instead, set the `quarkus.kubernetes.ingress.target-port=grpc` property in your application.properties:
 
 [source,properties]
 ----
@@ -60,7 +60,7 @@ target/kubernetes
 └── kubernetes.yml
 ----
 
-You can find more information about how to deploy the application in Kubernetes in the xref:deploying-to-kubernetes.adoc#deployment[the Kubernetes guide].
+You can find more information about how to deploy the application in Kubernetes in the xref:deploying-to-kubernetes.adoc#deployment[Kubernetes guide].
 
 == Using gRPC Health probes
 

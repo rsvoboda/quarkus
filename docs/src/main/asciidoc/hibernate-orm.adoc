@@ -410,7 +410,7 @@ It is also supported to attach a given model class to several persistence units.
 [NOTE]
 ====
 Model classes need to be consistently added to a given persistence unit.
-That meant that all dependent model classes of a given entity (mapped super classes, embeddables...) are required to be attached to the persistence unit.
+That means that all dependent model classes of a given entity (mapped super classes, embeddables...) are required to be attached to the persistence unit.
 As we are dealing with the persistence unit at the package level, it should be simple enough.
 ====
 
@@ -1118,7 +1118,7 @@ include::{includes}/duration-format-note.adoc[]
 
 The caching technology provided within Quarkus is currently quite rudimentary and limited.
 
-The team thought it was better to have _some_ caching capability to start with, than having nothing; you can expect better caching solution to be integrated in future releases, and any help and feedback in this area is very welcome.
+The team thought it was better to have _some_ caching capability to start with, than having nothing; you can expect a better caching solution to be integrated in future releases, and any help and feedback in this area is very welcome.
 
 [NOTE]
 ====
@@ -1135,7 +1135,7 @@ On top of immutable data, in certain contexts it might be acceptable to enable c
  This is however not recommended and should be done with extreme care, as it might
  produce unexpected and unforeseen effects on the data.
 
-Rather than enabling caching on mutable data, ideally a better solution would be to use a clustered cache; however at this time Quarkus doesn't provide any such implementation: feel free to get in touch and let this need known so that the team can take this into account.
+Rather than enabling caching on mutable data, ideally a better solution would be to use a clustered cache; however at this time Quarkus doesn't provide any such implementation: feel free to get in touch and let this need be known so that the team can take this into account.
 ====
 
 Finally, the second-level cache can be disabled globally by setting `hibernate.cache.use_second_level_cache` to `false`; this is a setting that needs to be specified in the `persistence.xml` configuration file.
@@ -1305,7 +1305,7 @@ This is both a security precaution and an optimization.
 === Other notable differences
 
 Format of `import.sql`::
-When importing a `import.sql` to set up your database, keep in mind that Quarkus reconfigures Hibernate ORM so to require a semicolon (`;`) to terminate each statement.
+When importing an `import.sql` to set up your database, keep in mind that Quarkus reconfigures Hibernate ORM so to require a semicolon (`;`) to terminate each statement.
 The default in Hibernate is to have a statement per line, without requiring a terminator other than newline: remember to convert your scripts to use the `;` terminator character if you're reusing existing scripts.
 This is useful so to allow multi-line statements and human friendly formatting.
 

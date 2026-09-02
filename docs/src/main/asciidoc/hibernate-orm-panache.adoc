@@ -490,7 +490,7 @@ List<String> namesButEmmanuels = persons
 
 NOTE: The `stream` methods require a transaction to work.
 
-NOTE: The rest of the documentation show usages based on the active record pattern only,
+NOTE: The rest of the documentation shows usages based on the active record pattern only,
 but keep in mind that they can be performed with the repository pattern as well.
 The repository pattern examples have been omitted for brevity.
 
@@ -594,7 +594,7 @@ ALTER SEQUENCE person_seq RESTART WITH 2;
 
 NOTE: If you would like to initialize the DB when you start the Quarkus app in your demo ("production") environment, add `quarkus.hibernate-orm.schema-management.strategy=drop-and-create` to the Quarkus startup options in addition to `import.sql`.
 
-After that, you can see the people list and add new person as followings:
+After that, you can see the people list and add new person as follows:
 
 [source,shell]
 ----
@@ -1120,7 +1120,7 @@ Be careful that locks are released when the transaction ends, so the method that
 
 == Custom IDs
 
-IDs are often a touchy subject, and not everyone's up for letting them handled by the framework, once again we
+IDs are often a touchy subject, and not everyone's up for letting them be handled by the framework, once again we
 have you covered.
 
 You can specify your own ID strategy by extending `PanacheEntityBase` instead of `PanacheEntity`. Then

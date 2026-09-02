@@ -204,7 +204,7 @@ org.acme.rest.client.ExtensionsService/mp-rest/url=https://stage.code.quarkus.io
 org.acme.rest.client.ExtensionsService/mp-rest/scope=jakarta.inject.Singleton
 ----
 
-If a property is specified via both the Quarkus notation and the MicroProfile notation, the Quarkus notation takes a precedence.
+If a property is specified via both the Quarkus notation and the MicroProfile notation, the Quarkus notation takes precedence.
 ====
 
 
@@ -342,7 +342,7 @@ The code above uses link:https://rest-assured.io/[REST Assured]'s link:https://g
 [[redirection]]
 == Redirection
 
-A HTTP server can redirect a response to another location by sending a response with a status code that starts with "3" and a HTTP header "Location" holding the URL to be redirected to. When the REST Client receives a redirection response from a HTTP server, it won't automatically perform another request to the new location. However, you can enable the automatic redirection by enabling the "follow-redirects" property:
+An HTTP server can redirect a response to another location by sending a response with a status code that starts with "3" and an HTTP header "Location" holding the URL to be redirected to. When the REST Client receives a redirection response from an HTTP server, it won't automatically perform another request to the new location. However, you can enable the automatic redirection by enabling the "follow-redirects" property:
 
 - `quarkus.rest-client.follow-redirects` to enable redirection for all REST clients.
 - `quarkus.rest-client.<client-prefix>.follow-redirects` to enable redirection for a specific REST client.

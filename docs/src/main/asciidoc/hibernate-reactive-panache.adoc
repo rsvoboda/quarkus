@@ -169,7 +169,7 @@ public class Person extends PanacheEntity {
 
 And thanks to our field access rewrite, when your users read `person.name` they will actually call your `getName()` accessor,
 and similarly for field writes and the setter.
-This allows for proper encapsulation at runtime as all fields calls will be replaced by the corresponding getter/setter calls.
+This allows for proper encapsulation at runtime as all field calls will be replaced by the corresponding getter/setter calls.
 
 === Most useful operations
 
@@ -300,7 +300,7 @@ Quarkus will generate them for you. You can even extend `PanacheEntity` and take
 === Defining your repository
 
 When using Repositories, you get the exact same convenient methods as with the active record pattern, injected in your Repository,
-by making them implements `PanacheRepository`:
+by making them implement `PanacheRepository`:
 
 [source,java]
 ----
@@ -389,7 +389,7 @@ Uni<Boolean> deleteByIdOperation = personRepository.deleteById(23L);
 Uni<Integer> updateOperation = personRepository.update("name = 'Mortal' where status = ?1", Status.Alive);
 ----
 
-NOTE: The rest of the documentation show usages based on the active record pattern only,
+NOTE: The rest of the documentation shows usages based on the active record pattern only,
 but keep in mind that they can be performed with the repository pattern as well.
 The repository pattern examples have been omitted for brevity.
 
@@ -810,7 +810,7 @@ There are some limitations when using different pipelines with `@Transactional`,
 
 Hibernate Reactive batches changes you make to your entities and sends changes (it is called flush) at the end of the transaction or before a query.
 This is usually a good thing as it is more efficient.
-But if you want to check optimistic locking failures, do object validation right away or generally want to get immediate feedback, you can force the flush operation by calling `entity.flush()` or even use `entity.persistAndFlush()` to make it a single method call. This will allow you to catch any `PersistenceException` that could occur when Hibernate Reactive send those changes to the database.
+But if you want to check optimistic locking failures, do object validation right away or generally want to get immediate feedback, you can force the flush operation by calling `entity.flush()` or even use `entity.persistAndFlush()` to make it a single method call. This will allow you to catch any `PersistenceException` that could occur when Hibernate Reactive sends those changes to the database.
 Remember, this is less efficient so don't abuse it.
 And your transaction still has to be committed.
 
@@ -884,7 +884,7 @@ Be careful that locks are released when the transaction ends, so the method that
 
 == Custom IDs
 
-IDs are often a touchy subject, and not everyone's up for letting them handled by the framework, once again we
+IDs are often a touchy subject, and not everyone's up for letting them be handled by the framework, once again we
 have you covered.
 
 You can specify your own ID strategy by extending `PanacheEntityBase` instead of `PanacheEntity`. Then

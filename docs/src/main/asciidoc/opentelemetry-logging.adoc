@@ -137,7 +137,7 @@ To configure the connection using the same properties for all signals, please ch
 
 By default all log levels are exported.
 
-If the following configuration is created in the the `application.properties` file, only logs with a level of `ERROR` or higher will be exported:
+If the following configuration is created in the `application.properties` file, only logs with a level of `ERROR` or higher will be exported:
 [source,properties]
 ----
 quarkus.otel.logs.level=ERROR
@@ -162,7 +162,7 @@ The Grafana-OTel-LGTM Dev Service will start automatically on Dev Mode and data 
 
 * Take a look at: xref:observability-devservices-lgtm.adoc[Getting Started with Grafana-OTel-LGTM].
 
-This features a Quarkus Dev service including a Grafana for visualizing data, Loki to store logs, Tempo to store traces and Prometheus to store metrics. Also provides and OTel collector to receive the data.
+This features a Quarkus Dev service including a Grafana for visualizing data, Loki to store logs, Tempo to store traces and Prometheus to store metrics. Also provides an OTel collector to receive the data.
 
 ==== Logging exporter
 

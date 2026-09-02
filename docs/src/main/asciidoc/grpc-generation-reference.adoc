@@ -349,6 +349,6 @@ Thus, you don't need to download any `protoc` variants:
 mvn clean quarkus:dev -Dquarkus.grpc.protoc-path=/path/to/protoc
 ----
 
-IMPORTANT: Using this approach requires to have `protoc` installed locally. It will not download any `protoc` artifact.
+IMPORTANT: Using this approach requires having `protoc` installed locally. It will not download any `protoc` artifact.
 
 WARNING: Unfortunately, this only works for `protoc` and not for the Java plugin. The Java plugin is always downloaded.

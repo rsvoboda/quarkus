@@ -64,7 +64,7 @@ between the Java and Kotlin variants and allows for both to be used unambiguousl
 
 In the Kotlin version, we've simply moved the bulk of the link:https://www.martinfowler.com/eaaCatalog/activeRecord.html[`active record pattern`]
 functionality to the `companion object`.  Apart from this slight change, we can then work with our types in ways that map easily
-from the Java side of world.
+from the Java side of the world.
 
 
 == Solution

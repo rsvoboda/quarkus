@@ -172,7 +172,7 @@ The Grafana-OTel-LGTM Dev Service will start automatically on Dev Mode and data 
 * Take a look at: xref:observability-devservices-lgtm.adoc[Getting Started with Grafana-OTel-LGTM].
 
 This Dev service includes a Grafana for visualizing data, Loki to store logs, Tempo to store traces and Prometheus to store metrics.
-Also provides and OTel collector to receive the data.
+Also provides an OTel collector to receive the data.
 
 ==== Logging exporter
 
@@ -295,7 +295,7 @@ This is a pretty printed example:
 <4> The value of the metric.
 3 invocations were made until now.
 <5> Exemplars additional tracing information about the metric.
-In this case, the traceId and spanId of one os the request that triggered the metric, since it was last sent.
+In this case, the traceId and spanId of one of the request that triggered the metric, since it was last sent.
 
 Hit `CTRL+C` or type `q` to stop the application.
 

@@ -284,7 +284,7 @@ public class LibraryResource {
 
 Nothing out of the ordinary here: it is just good old Hibernate ORM with Panache operations in a REST service.
 
-In fact, the interesting part is that we will need to add very few elements to make our full text search application working.
+In fact, the interesting part is that we will need to add very few elements to make our full text search application work.
 
 == Using Hibernate Search annotations
 
@@ -614,7 +614,7 @@ Applications with multiple persistence units can use the CDI qualifier `@io.quar
 to select the right one:
 see <<multiple-persistence-units-attaching-cdi>>.
 <2> Add a method that will get executed on application startup.
-<3> Create a "search scope" targeting all indexed entity types that extend `Object` -- that is, every single indexed entity types (`Author` and `Book`).
+<3> Create a "search scope" targeting all indexed entity types that extend `Object` -- that is, every single indexed entity type (`Author` and `Book`).
 <4> Create an instance of Hibernate Search's mass indexer, which allows indexing a lot of data efficiently (you can fine tune it for better performance).
 <5> Start the mass indexer and wait for it to finish.
 

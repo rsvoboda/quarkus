@@ -758,7 +758,7 @@ to solve this problem.
 In Quarkus, the RESTEasy extension and xref:resteasy-client.adoc[the REST Client extension] share the same infrastructure.
 One important consequence of this consideration is that they share the same list of providers (in the Jakarta REST meaning of the word).
 
-For instance, if you declare a `WriterInterceptor`, it will, by default, intercept both the servers calls and the client calls,
+For instance, if you declare a `WriterInterceptor`, it will, by default, intercept both the server calls and the client calls,
 which might not be the desired behavior.
 
 However, you can change this default behavior and constrain a provider to:
@@ -809,7 +809,7 @@ Inject `@Context` elements in fields of your resources instead.
 
 == Include/Exclude Jakarta REST classes with build time conditions
 
-Quarkus enables the inclusion or exclusion of Jakarta REST Resources, Providers and Features directly thanks to build time conditions in the same that it does for CDI beans.
+Quarkus enables the inclusion or exclusion of Jakarta REST Resources, Providers and Features directly thanks to build time conditions in the same way that it does for CDI beans.
 Thus, the various Jakarta REST classes can be annotated with profile conditions (`@io.quarkus.arc.profile.IfBuildProfile` or `@io.quarkus.arc.profile.UnlessBuildProfile`) and/or with property conditions (`io.quarkus.arc.properties.IfBuildProperty` or `io.quarkus.arc.properties.UnlessBuildProperty`) to indicate to Quarkus at build time under which conditions these Jakarta REST classes should be included.
 
 In the following example, Quarkus includes the endpoint `sayHello` if and only if the build profile `app1` has been enabled.
