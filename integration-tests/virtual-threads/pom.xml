@@ -173,7 +173,7 @@
             <dependency>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-integration-test-class-transformer-deployment</artifactId>
-                <version>${project.version}</version>
+                <version>${quarkus.platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.quarkus</groupId>

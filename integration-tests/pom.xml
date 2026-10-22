@@ -25,6 +25,24 @@
 
         <!-- for now, relax forbiddenapis in ITs entirely, we will provide a specific configuration file later -->
         <forbiddenapis-maven-plugin.phase>none</forbiddenapis-maven-plugin.phase>
+
+        <!--
+            Quarkus platform / BOM coordinates the integration tests build against.
+            Defaults target the in-tree reactor build (io.quarkus, current reactor version).
+
+            Override these to run the integration tests against a different Quarkus version,
+            e.g. a released community version or the Quarkus product (RHBQ):
+              -Dquarkus.platform.group-id=com.redhat.quarkus.platform
+              -Dquarkus.platform.artifact-id=quarkus-bom
+              -Dquarkus.platform.version=3.20.0.redhat-00001
+              -Dquarkus-plugin.version=3.20.0.redhat-00001
+            Setting -Dquarkus.platform.version activates the "quarkus-platform" profile below,
+            which imports the external platform BOM instead of the in-tree test BOM.
+        -->
+        <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
+        <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
+        <quarkus.platform.version>${project.version}</quarkus.platform.version>
+        <quarkus-plugin.version>${project.version}</quarkus-plugin.version>
     </properties>
 
     <!-- modules are in profile test-modules -->
@@ -73,7 +91,7 @@
                 <plugin>
                     <groupId>io.quarkus</groupId>
                     <artifactId>quarkus-maven-plugin</artifactId>
-                    <version>${project.version}</version>
+                    <version>${quarkus-plugin.version}</version>
                     <executions>
                         <execution>
                             <!-- for now this execution will only dump Quarkus application
@@ -109,18 +127,17 @@
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>io.quarkus</groupId>
-                <artifactId>quarkus-bom-test</artifactId>
-                <version>${project.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
+            <!--
+                In-tree-only test helper artifacts. These are not published in a Quarkus
+                platform/product BOM, so integration tests that rely on them cannot run
+                against an external Quarkus version without these helpers being provided.
+                The BOM import itself is contributed by the "quarkus-in-tree" /
+                "quarkus-platform" profiles below.
+            -->
             <dependency>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-integration-test-class-transformer-deployment</artifactId>
-                <version>${project.version}</version>
+                <version>${quarkus.platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.quarkus</groupId>
@@ -135,23 +152,77 @@
         </dependencies>
     </dependencyManagement>
 
-    <dependencies>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-bom-test</artifactId>
-            <version>${project.version}</version>
-            <type>pom</type>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>*</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-    </dependencies>
-
     <profiles>
+        <!--
+            Default profile for the in-tree reactor build: imports the in-tree test BOM
+            (quarkus-bom-test, which also imports quarkus-bom). Active whenever the build
+            is NOT pointed at an external platform via -Dquarkus.platform.version.
+        -->
+        <profile>
+            <id>quarkus-in-tree</id>
+            <activation>
+                <property>
+                    <name>!quarkus.platform.version</name>
+                </property>
+            </activation>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>io.quarkus</groupId>
+                        <artifactId>quarkus-bom-test</artifactId>
+                        <version>${project.version}</version>
+                        <type>pom</type>
+                        <scope>import</scope>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+            <dependencies>
+                <dependency>
+                    <groupId>io.quarkus</groupId>
+                    <artifactId>quarkus-bom-test</artifactId>
+                    <version>${project.version}</version>
+                    <type>pom</type>
+                    <scope>test</scope>
+                    <exclusions>
+                        <exclusion>
+                            <groupId>*</groupId>
+                            <artifactId>*</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+            </dependencies>
+        </profile>
+
+        <!--
+            Profile for running the integration tests against an external Quarkus version
+            (released community version or the Quarkus product / RHBQ). Activated by passing
+            -Dquarkus.platform.version=<version> (optionally with -Dquarkus.platform.group-id
+            and -Dquarkus.platform.artifact-id). Imports the platform BOM instead of the
+            in-tree test BOM.
+        -->
+        <profile>
+            <id>quarkus-platform</id>
+            <activation>
+                <property>
+                    <name>quarkus.platform.version</name>
+                </property>
+            </activation>
+            <properties>
+                <quarkus-plugin.version>${quarkus.platform.version}</quarkus-plugin.version>
+            </properties>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>${quarkus.platform.group-id}</groupId>
+                        <artifactId>${quarkus.platform.artifact-id}</artifactId>
+                        <version>${quarkus.platform.version}</version>
+                        <type>pom</type>
+                        <scope>import</scope>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+
         <profile>
             <id>test-modules</id>
             <activation>
