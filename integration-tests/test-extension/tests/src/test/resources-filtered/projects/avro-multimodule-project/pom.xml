@@ -16,7 +16,7 @@
 
         <version.maven-compiler-plugin>${compiler-plugin.version}</version.maven-compiler-plugin>
         <version.maven-surefire-plugin>3.5.4</version.maven-surefire-plugin>
-        <version.quarkus>@project.version@</version.quarkus>
+        <version.quarkus>@quarkus.platform.version@</version.quarkus>
     </properties>
 
     <dependencyManagement>

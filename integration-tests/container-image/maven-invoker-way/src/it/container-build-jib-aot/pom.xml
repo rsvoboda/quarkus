@@ -19,7 +19,7 @@
       <dependency>
         <groupId>io.quarkus</groupId>
         <artifactId>quarkus-bom</artifactId>
-        <version>@project.version@</version>
+        <version>@quarkus.platform.version@</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -62,7 +62,7 @@
           <plugin>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-maven-plugin</artifactId>
-            <version>@project.version@</version>
+            <version>@quarkus.platform.version@</version>
             <executions>
               <execution>
                 <goals>

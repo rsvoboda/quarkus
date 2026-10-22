@@ -13,7 +13,7 @@
         <maven.compiler.target>${maven.compiler.target}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
-        <quarkus.platform.version>@project.version@</quarkus.platform.version>
+        <quarkus.platform.version>@quarkus.platform.version@</quarkus.platform.version>
     </properties>
 
     <modules>

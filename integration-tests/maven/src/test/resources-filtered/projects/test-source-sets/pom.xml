@@ -40,7 +40,7 @@
     <!-- Quarkus setup -->
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
-    <quarkus.platform.version>@project.version@</quarkus.platform.version>
+    <quarkus.platform.version>@quarkus.platform.version@</quarkus.platform.version>
   </properties>
   <dependencyManagement>
     <dependencies>

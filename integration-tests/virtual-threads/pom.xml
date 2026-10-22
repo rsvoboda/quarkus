@@ -165,7 +165,7 @@
             <dependency>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-bom-test</artifactId>
-                <version>${project.version}</version>
+                <version>${quarkus.platform.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -187,7 +187,7 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-bom-test</artifactId>
-            <version>${project.version}</version>
+            <version>${quarkus.platform.version}</version>
             <type>pom</type>
             <scope>test</scope>
             <exclusions>

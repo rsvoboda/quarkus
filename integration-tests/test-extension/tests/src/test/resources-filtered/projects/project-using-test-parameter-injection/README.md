@@ -17,5 +17,5 @@ mvn quarkus:dev
 If you do want to run in the source directory, you will need to edit `pom.xml` to add temporary versions for these
 properties:
 
-- `quarkus.version`
+- `quarkus.platform.version`
 - `project.version`

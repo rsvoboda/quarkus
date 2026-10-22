@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.acme</groupId>
     <artifactId>quarkustest-added-with-serviceloader</artifactId>
-    <version>@project.version@</version>
+    <version>@quarkus.platform.version@</version>
   </parent>
 
   <artifactId>acme-tck</artifactId>
@@ -14,12 +14,12 @@
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-core</artifactId>
-      <version>${quarkus.version}</version>
+      <version>${quarkus.platform.version}</version>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-arc</artifactId>
-      <version>${quarkus.version}</version>
+      <version>${quarkus.platform.version}</version>
     </dependency>
   </dependencies>
 
@@ -28,7 +28,7 @@
       <plugin>
         <groupId>io.quarkus</groupId>
         <artifactId>quarkus-extension-maven-plugin</artifactId>
-        <version>${quarkus.version}</version>
+        <version>${quarkus.platform.version}</version>
         <executions>
           <execution>
             <goals>
@@ -49,7 +49,7 @@
             <path>
               <groupId>io.quarkus</groupId>
               <artifactId>quarkus-extension-processor</artifactId>
-              <version>${quarkus.version}</version>
+              <version>${quarkus.platform.version}</version>
             </path>
           </annotationProcessorPaths>
         </configuration>

@@ -73,7 +73,7 @@
                 </executions>
                 <configuration>
                     <systemPropertyVariables>
-                        <project.version>${project.version}</project.version>
+                        <project.version>${quarkus.platform.version}</project.version>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>

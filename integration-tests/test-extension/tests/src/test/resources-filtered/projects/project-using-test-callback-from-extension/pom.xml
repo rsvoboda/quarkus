@@ -13,14 +13,14 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <surefire-plugin.version>3.5.4</surefire-plugin.version>
-    <quarkus.version>@project.version@</quarkus.version>
+    <quarkus.platform.version>@quarkus.platform.version@</quarkus.platform.version>
   </properties>
   <dependencyManagement>
     <dependencies>
       <dependency>
         <groupId>io.quarkus</groupId>
         <artifactId>${quarkus.bom.artifact-id}</artifactId>
-        <version>${quarkus.version}</version>
+        <version>${quarkus.platform.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -45,7 +45,7 @@
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>integration-test-extension-that-defines-junit-test-extensions</artifactId>
-      <version>${quarkus.version}</version>
+      <version>${project.version}</version>
        <scope>test</scope> 
     </dependency>
 
@@ -55,7 +55,7 @@
       <plugin>
         <groupId>io.quarkus</groupId>
         <artifactId>quarkus-maven-plugin</artifactId>
-        <version>${quarkus.version}</version>
+        <version>${quarkus.platform.version}</version>
         <extensions>true</extensions>
         <executions>
           <execution>

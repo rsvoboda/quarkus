@@ -21,7 +21,7 @@
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-core-deployment</artifactId>
-      <version>${project.version}</version>
+      <version>${quarkus.platform.version}</version>
       <type>pom</type>
       <scope>test</scope>
       <exclusions>
@@ -38,6 +38,12 @@
       <plugin>
         <groupId>io.quarkus</groupId>
         <artifactId>quarkus-extension-maven-plugin</artifactId>
+        <configuration>
+          <!-- When running ITs against an external Quarkus version via -Dquarkus.platform.version=X,
+               the generated extension descriptor must declare a compatible requires-quarkus-core range.
+               Otherwise Quarkus rejects this extension as incompatible with the target version. -->
+          <requiresQuarkusCore>[${quarkus.platform.version},)</requiresQuarkusCore>
+        </configuration>
       </plugin>
     </plugins>
   </build>

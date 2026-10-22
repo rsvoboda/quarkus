@@ -22,7 +22,7 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <maven.compiler.parameters>true</maven.compiler.parameters>
-        <quarkus.version>\${project.version}</quarkus.version>
+        <quarkus.platform.version>\${project.version}</quarkus.platform.version>
         <compiler-plugin.version>\${compiler-plugin.version}</compiler-plugin.version>
     </properties>
 
@@ -35,7 +35,7 @@
             <dependency>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-bom</artifactId>
-                <version>\${quarkus.version}</version>
+                <version>\${quarkus.platform.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

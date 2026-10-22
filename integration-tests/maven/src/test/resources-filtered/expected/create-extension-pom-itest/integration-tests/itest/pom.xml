@@ -17,7 +17,7 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy</artifactId>
-            <version>\${quarkus.version}</version>
+            <version>\${quarkus.platform.version}</version>
         </dependency>
         <dependency>
             <groupId>org.acme</groupId>
@@ -29,7 +29,7 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit</artifactId>
-            <version>\${quarkus.version}</version>
+            <version>\${quarkus.platform.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>

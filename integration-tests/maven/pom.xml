@@ -39,7 +39,7 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-bom-quarkus-platform-descriptor</artifactId>
-            <version>${project.version}</version>
+            <version>${quarkus.platform.version}</version>
             <type>pom</type>
             <exclusions>
                 <exclusion>
@@ -51,7 +51,7 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-maven-plugin</artifactId>
-            <version>${project.version}</version>
+            <version>${quarkus.platform.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -129,7 +129,7 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-cyclonedx-deployment</artifactId>
             <scope>test</scope>
-            <version>${project.version}</version>
+            <version>${quarkus.platform.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>*</groupId>
@@ -253,7 +253,7 @@
                                     <skip>${skipTests}</skip>
                                     <jsonGroupId>io.quarkus</jsonGroupId>
                                     <jsonArtifactId>quarkus-bom-quarkus-platform-descriptor</jsonArtifactId>
-                                    <jsonVersion>${project.version}</jsonVersion>
+                                    <jsonVersion>${quarkus.platform.version}</jsonVersion>
                                     <ignoredGroupIds>
                                         <ignoredGroupId>software.amazon.awssdk</ignoredGroupId>
                                     </ignoredGroupIds>

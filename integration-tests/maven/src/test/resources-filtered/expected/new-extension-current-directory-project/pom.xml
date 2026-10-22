@@ -15,7 +15,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.release>21</maven.compiler.release>
-        <quarkus.version>\${project.version}</quarkus.version>
+        <quarkus.platform.version>\${project.version}</quarkus.platform.version>
         <compiler-plugin.version>\${compiler-plugin.version}</compiler-plugin.version>
     </properties>
 
@@ -28,7 +28,7 @@
             <dependency>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-bom</artifactId>
-                <version>\${quarkus.version}</version>
+                <version>\${quarkus.platform.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

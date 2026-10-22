@@ -16,6 +16,15 @@
     <packaging>pom</packaging>
 
     <properties>
+        <!--
+            quarkus.platform.version controls the version of all published Quarkus artifacts (BOM, plugins, etc.)
+            used when building extensions and integration tests. It defaults to ${project.version} so that
+            everything works unchanged inside the monorepo. To run integration tests against a different
+            Quarkus release (e.g. a product build or an older community version) pass:
+                -Dquarkus.platform.version=<target-version>
+        -->
+        <quarkus.platform.version>${project.version}</quarkus.platform.version>
+
         <!-- Maven plugin versions -->
 
         <!-- These properties are needed in order for them to be resolvable by the generated projects -->
@@ -65,8 +74,8 @@
         <minimum-gradle-version>9.6</minimum-gradle-version>
         <supported-gradle-versions>[9.6,)</supported-gradle-versions>
         <gradle-wrapper.version>9.7.0</gradle-wrapper.version>
-        <quarkus-gradle-plugin.version>${project.version}</quarkus-gradle-plugin.version>
-        <quarkus-maven-plugin.version>${project.version}</quarkus-maven-plugin.version>
+        <quarkus-gradle-plugin.version>${quarkus.platform.version}</quarkus-gradle-plugin.version>
+        <quarkus-maven-plugin.version>${quarkus.platform.version}</quarkus-maven-plugin.version>
         <maven-plugin-plugin.version>3.8.1</maven-plugin-plugin.version>
 
         <!-- MicroProfile TCK versions used to be defined here but have moved to the concrete tck modules -->
@@ -221,7 +230,7 @@
             <dependency>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-bom</artifactId>
-                <version>${project.version}</version>
+                <version>${quarkus.platform.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -230,7 +239,7 @@
             <dependency>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-devmode-test-utils</artifactId>
-                <version>${project.version}</version>
+                <version>${quarkus.platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.freemarker</groupId>
@@ -269,33 +278,33 @@
             <dependency>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-bootstrap-core</artifactId>
-                <version>${project.version}</version>
+                <version>${quarkus.platform.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-reactive-datasource-deployment</artifactId>
-                <version>${project.version}</version>
+                <version>${quarkus.platform.version}</version>
                 <scope>test</scope>
                 <type>test-jar</type>
             </dependency>
             <dependency>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-rest-deployment</artifactId>
-                <version>${project.version}</version>
+                <version>${quarkus.platform.version}</version>
                 <scope>test</scope>
                 <type>test-jar</type>
             </dependency>
             <dependency>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-war-launcher-runner</artifactId>
-                <version>${project.version}</version>
+                <version>${quarkus.platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-legacy-launcher</artifactId>
-                <version>${project.version}</version>
+                <version>${quarkus.platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.unboundid</groupId>
@@ -307,6 +316,8 @@
                 <artifactId>wiremock-standalone</artifactId>
                 <version>${wiremock.version}</version>
             </dependency>
+            <!-- IT-internal artifacts: built from source inside the monorepo; always use ${project.version}
+                 even when quarkus.platform.version points to an external Quarkus release. -->
             <dependency>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-integration-test-class-transformer</artifactId>
@@ -320,23 +331,23 @@
             <dependency>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-test-maven</artifactId>
-                <version>${project.version}</version>
+                <version>${quarkus.platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-security-test-utils</artifactId>
-                <version>${project.version}</version>
+                <version>${quarkus.platform.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-arc-test-supplement</artifactId>
-                <version>${project.version}</version>
+                <version>${quarkus.platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-arc-test-supplement-decorator</artifactId>
-                <version>${project.version}</version>
+                <version>${quarkus.platform.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.assertj</groupId>
@@ -451,7 +462,7 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-bom</artifactId>
-            <version>${project.version}</version>
+            <version>${quarkus.platform.version}</version>
             <type>pom</type>
             <scope>test</scope>
             <exclusions>
@@ -504,7 +515,7 @@
                             <maven.repo.local>${settings.localRepository}</maven.repo.local>
                             <maven.settings>${session.request.userSettingsFile.path}</maven.settings>
                             <!-- some dev tools tests need the following properties -->
-                            <project.version>${project.version}</project.version>
+                            <project.version>${quarkus.platform.version}</project.version>
                             <project.groupId>${project.groupId}</project.groupId>
                         </systemPropertyVariables>
                         <!-- limit the amount of memory surefire can use, 1500m should be plenty-->
@@ -532,7 +543,7 @@
                             <maven.repo.local>${settings.localRepository}</maven.repo.local>
                             <maven.settings>${session.request.userSettingsFile.path}</maven.settings>
                             <!-- some dev tools tests need the following properties -->
-                            <project.version>${project.version}</project.version>
+                            <project.version>${quarkus.platform.version}</project.version>
                             <project.groupId>${project.groupId}</project.groupId>
                         </systemPropertyVariables>
                         <!-- set tmpdir as early as possible because failsafe sets it too late for JDK16 -->
@@ -543,12 +554,12 @@
                 <plugin>
                     <groupId>io.quarkus</groupId>
                     <artifactId>quarkus-maven-plugin</artifactId>
-                    <version>${project.version}</version>
+                    <version>${quarkus.platform.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>io.quarkus</groupId>
                     <artifactId>quarkus-extension-maven-plugin</artifactId>
-                    <version>${project.version}</version>
+                    <version>${quarkus.platform.version}</version>
                     <executions>
                         <execution>
                             <id>generate-extension-descriptor</id>
@@ -570,7 +581,7 @@
                         <dependency>
                             <groupId>io.quarkus</groupId>
                             <artifactId>quarkus-enforcer-rules</artifactId>
-                            <version>${project.version}</version>
+                            <version>${quarkus.platform.version}</version>
                         </dependency>
                     </dependencies>
                     <executions>
@@ -1119,7 +1130,7 @@
                             <dependency>
                                 <groupId>io.quarkus</groupId>
                                 <artifactId>quarkus-revapi-config</artifactId>
-                                <version>${project.version}</version>
+                                <version>${quarkus.platform.version}</version>
                             </dependency>
                             <dependency>
                                 <groupId>org.revapi</groupId>

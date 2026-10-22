@@ -12,7 +12,7 @@
   </modules>
 
   <properties>
-    <quarkus.platform.version>@project.version@</quarkus.platform.version>
+    <quarkus.platform.version>@quarkus.platform.version@</quarkus.platform.version>
     <compiler-plugin.version>${compiler-plugin.version}</compiler-plugin.version>
     <surefire-plugin.version>${version.surefire.plugin}</surefire-plugin.version>
     <maven.compiler.source>${maven.compiler.source}</maven.compiler.source>
