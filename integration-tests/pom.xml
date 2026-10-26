@@ -219,6 +219,24 @@
                         <type>pom</type>
                         <scope>import</scope>
                     </dependency>
+                    <!--
+                        quarkus-bom-test only manages a handful of test-only dependencies
+                        (rxjava, strimzi-test-container, smallrye-certificate-generator-junit5,
+                        jaxb-api, opentelemetry-proto) that the integration tests use but that
+                        are NOT part of the platform BOM. Its dependencyManagement does not
+                        import quarkus-bom, so importing it here supplies only those extras and
+                        does not override the platform's extension versions (the platform BOM
+                        above is declared first and wins for any overlapping artifact).
+                        Note: this uses the in-tree ${project.version} test BOM and therefore
+                        assumes the Quarkus source tree is present (Model A).
+                    -->
+                    <dependency>
+                        <groupId>io.quarkus</groupId>
+                        <artifactId>quarkus-bom-test</artifactId>
+                        <version>${project.version}</version>
+                        <type>pom</type>
+                        <scope>import</scope>
+                    </dependency>
                 </dependencies>
             </dependencyManagement>
         </profile>

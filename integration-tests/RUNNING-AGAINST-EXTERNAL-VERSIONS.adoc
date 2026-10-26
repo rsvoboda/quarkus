@@ -1,0 +1,138 @@
+= Running the integration tests against a different Quarkus version
+:toc:
+
+The integration tests under `integration-tests/` are, by default, built as part of
+the main Quarkus reactor against the in-tree `999-SNAPSHOT` version. They can also
+be pointed at a *different* Quarkus version — a released community version, an older
+or newer version, or the Quarkus product (RHBQ).
+
+This document describes what is already in place, how to use it, and the remaining
+structural work required for full independence.
+
+== Current capability (Layers 1 & 2)
+
+=== Parameterized version and BOM coordinates
+
+`integration-tests/pom.xml` exposes the canonical Quarkus platform properties, all
+defaulting to the in-tree values:
+
+[source,xml]
+----
+<quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
+<quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
+<quarkus.platform.version>${project.version}</quarkus.platform.version>
+<quarkus-plugin.version>${project.version}</quarkus-plugin.version>
+----
+
+Two auto-activated profiles select the BOM source:
+
+* `quarkus-in-tree` — active by default (when `quarkus.platform.version` is *not*
+  passed on the command line). Imports the in-tree `quarkus-bom-test`.
+* `quarkus-platform` — activated by `-Dquarkus.platform.version=<version>`. Imports
+  the external platform BOM `${quarkus.platform.group-id}:${quarkus.platform.artifact-id}`
+  and sets `quarkus-plugin.version` to the platform version.
+
+All `*-deployment` dependency versions across the IT modules use
+`${quarkus.platform.version}` instead of `${project.version}`, so they follow the
+selected platform version.
+
+=== How to run against the product (RHBQ)
+
+[source,bash]
+----
+./mvnw verify -f integration-tests/<module> \
+  -Dquarkus.platform.group-id=com.redhat.quarkus.platform \
+  -Dquarkus.platform.artifact-id=quarkus-bom \
+  -Dquarkus.platform.version=3.20.0.redhat-00001 \
+  -Dquarkus-plugin.version=3.20.0.redhat-00001
+----
+
+(The RHBQ Maven repository must be configured in `settings.xml`.)
+
+=== How to run against another community version
+
+[source,bash]
+----
+./mvnw verify -f integration-tests/<module> \
+  -Dquarkus.platform.version=<older-or-newer-release>
+----
+
+== Remaining structural work (Layer 3)
+
+Layers 1 & 2 let the IT *sources*, built **within the Quarkus source tree**, resolve
+extensions from an external/product BOM. They do **not** yet let the module build from
+a *product-only checkout* that lacks the in-tree ancestors. The blockers:
+
+[cols="1,3"]
+|===
+| Blocker | Detail
+
+| Parent chain pinned to `999-SNAPSHOT`
+| Every pom declares `<parent>…999-SNAPSHOT</parent>`, and the IT parent uses
+  `relativePath=../build-parent/pom.xml`. Maven cannot parameterize a parent version.
+  A product-only checkout has no `build-parent`/`quarkus-project` on disk.
+
+| Internal-only test helpers
+| `quarkus-bom-test`, `quarkus-integration-test-shared-library`,
+  `quarkus-integration-test-class-transformer`, `quarkus-arc-test-supplement`,
+  `quarkus-security-test-utils`, `quarkus-test-maven` and similar are published only
+  at `999-SNAPSHOT` and are absent from any platform/product BOM.
+
+| `build-parent` inheritance
+| Supplies all plugin management and the `quarkus-enforcer-rules` bundle (including the
+  custom `requiresMinimalDeploymentDependency` rule). Only present in the source tree.
+
+| Module applicability
+| Many modules test in-tree build internals (`devtools`, `gradle`, `maven`,
+  `class-transformer`, `packaging`, bootstrap) or unreleased extensions and cannot run
+  against an arbitrary external version. A curated, product-runnable subset is needed.
+|===
+
+=== Two target models
+
+==== Model A — run IT sources (within the source tree) against an external BOM
+
+Build the integration tests from a full Quarkus source checkout, but resolve the
+extensions under test from an external/product BOM. `build-parent` and the test helpers
+are built from the same source tree at `999-SNAPSHOT`; only the extension artifacts come
+from the platform.
+
+* *Status:* achieved and verified for per-module runs. The external code path was
+  exercised by pointing the platform profile at the locally-available
+  `io.quarkus:quarkus-bom:999-SNAPSHOT` (instead of `quarkus-bom-test`):
++
+[source,bash]
+----
+./mvnw test -f integration-tests/jpa-h2 \
+  -Dquarkus.platform.group-id=io.quarkus \
+  -Dquarkus.platform.artifact-id=quarkus-bom \
+  -Dquarkus.platform.version=999-SNAPSHOT \
+  -Dquarkus-plugin.version=999-SNAPSHOT
+----
++
+`jpa-h2` compiled and ran all tests green via this path (`quarkus-platform` active,
+`quarkus-in-tree` inactive, `quarkus-bom` imported directly). This same invocation with
+the RHBQ group-id/version runs against the product (RHBQ repo configured in `settings.xml`).
+* *Remaining:* (1) verify against a real product BOM across the module matrix (needs the
+  RHBQ repository); (2) build the in-tree test helpers first (`./mvnw -Dquickly install`);
+  (3) agree a curated product-runnable module subset (exclude the build-internal modules
+  listed above — this is a team/domain decision, not a mechanical one).
+* *Effort:* small–medium. Lowest risk. Recommended.
+
+==== Model B — fully standalone module buildable from a product-only checkout
+
+Extract `integration-tests/` so it builds with zero in-tree ancestors.
+
+* *Remaining:* (1) publish a standalone IT parent (and the required test helpers) at the
+  platform version, or adopt `flatten-maven-plugin`/`${revision}` CI-friendly versioning;
+  (2) repoint all ~342 child poms' `<parent>` to the standalone parent; (3) inline or
+  depend on published `quarkus-enforcer-rules` + plugin management; (4) curate modules.
+* *Effort:* large (multi-PR). Requires publishing infrastructure and product-repo
+  verification.
+
+== Recommendation
+
+Adopt *Model A*. It matches how RHBQ productization already builds from the Quarkus
+source tree, reuses the existing parent/helper chain, and is reachable from the work
+already done in Layers 1 & 2. Pursue Model B only if a genuinely detached IT repository
+is a hard requirement.
